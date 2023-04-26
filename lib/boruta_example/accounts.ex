@@ -217,6 +217,10 @@ defmodule BorutaExample.Accounts do
 
   ## Session
 
+   def update_last_login_at(user) do
+    user |> User.login_changeset() |> Repo.update!()
+   end
+
   @doc """
   Generates a session token.
   """

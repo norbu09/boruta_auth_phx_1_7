@@ -2,8 +2,8 @@ defmodule BorutaExample.ResourceOwners do
   @behaviour Boruta.Oauth.ResourceOwners
 
   alias Boruta.Oauth.ResourceOwner
-  alias MyApp.Accounts.User
-  alias MyApp.Repo
+  alias BorutaExample.Accounts.User
+  alias BorutaExample.Repo
 
   @impl Boruta.Oauth.ResourceOwners
   def get_by(username: username) do

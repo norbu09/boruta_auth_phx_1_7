@@ -1,5 +1,4 @@
-defmodule BorutaExampleWeb.OauthView do
-  use BorutaExampleWeb, :view
+defmodule BorutaExampleWeb.Oauth.AuthorizeJson do
 
   alias Boruta.Oauth.IntrospectResponse
   alias Boruta.Oauth.TokenResponse
@@ -66,3 +65,4 @@ defmodule BorutaExampleWeb.OauthView do
     }
   end
 end
+

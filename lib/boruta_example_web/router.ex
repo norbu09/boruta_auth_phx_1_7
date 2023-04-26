@@ -2,6 +2,16 @@ defmodule BorutaExampleWeb.Router do
   use BorutaExampleWeb, :router
 
   import BorutaExampleWeb.UserAuth
+  import BorutaExampleWeb.Plugs.Authorization,
+    only: [
+      require_authenticated: 2
+    ]
+
+  pipeline :protected_api do
+    plug(:accepts, ["json"])
+
+    plug(:require_authenticated)
+  end
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -24,9 +34,10 @@ defmodule BorutaExampleWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", BorutaExampleWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", BorutaExampleWeb do
+    pipe_through :protected_api
+    resources "/urls", UrlController, except: [:new, :edit]
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:boruta_example, :dev_routes) do

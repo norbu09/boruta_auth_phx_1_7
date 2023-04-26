@@ -6,7 +6,8 @@ defmodule BorutaExampleWeb.Oauth.AuthorizeController do
   alias Boruta.Oauth.AuthorizeResponse
   alias Boruta.Oauth.Error
   alias Boruta.Oauth.ResourceOwner
-  alias BorutaExampleWeb.OauthView
+
+  action_fallback BorutaExampleWeb.FallbackController
 
   def oauth_module, do: Application.get_env(:boruta_example, :oauth_module, Boruta.Oauth)
 
@@ -63,7 +64,6 @@ defmodule BorutaExampleWeb.Oauth.AuthorizeController do
       ) do
     conn
     |> put_status(status)
-    |> put_view(OauthView)
     |> render("error.html", error: error, error_description: error_description)
   end
 
@@ -88,6 +88,6 @@ defmodule BorutaExampleWeb.Oauth.AuthorizeController do
     # """
   # end
   defp redirect_to_login(conn) do
-    redirect(conn, to: Routes.user_session_path(conn, :new))
+    redirect(conn, to: ~p"/users/log_in")
   end
 end
